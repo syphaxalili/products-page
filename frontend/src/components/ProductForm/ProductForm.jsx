@@ -176,7 +176,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
             inputProps={{
               min: 0,
               max: 10000000,
-              step: 0.05,
+              step: 0.01,
             }}
             InputProps={{
               startAdornment: (
