@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import useProductsContext from "../../hooks/useProductsContext";
+import { useSelector, useDispatch } from "react-redux";
+
 import "./home.css";
 import Typography from "@mui/material/Typography";
 
@@ -9,7 +10,8 @@ import ProductForm from "../../components/ProductForm/ProductForm";
 import Navbar from "../../components/Navbar/Navbar";
 
 const Home = () => {
-  const { products, dispatch } = useProductsContext();
+  const products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
   const [isShowForm, setIsShowForm] = useState(false);
   const [productInEdit, setProductInEdit] = useState(null);
 

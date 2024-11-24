@@ -1,4 +1,4 @@
-import useProductsContext from "../../hooks/useProductsContext";
+import { useDispatch } from "react-redux";
 import "./productcard.css";
 
 import {
@@ -14,7 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 const ProductCard = ({ product, openUpdateForm }) => {
-  const { dispatch } = useProductsContext();
+  const dispatch = useDispatch();
 
   const handleDelete = async () => {
     try {

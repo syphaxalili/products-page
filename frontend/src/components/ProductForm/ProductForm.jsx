@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./productform.css";
-import useProductsContext from "../../hooks/useProductsContext";
+import { useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   IconButton,
@@ -13,7 +13,6 @@ import {
   InputAdornment,
   Alert,
 } from "@mui/material";
-import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
 
 const ProductForm = ({ closeForm, productInEdit }) => {
   const [product, setProduct] = useState({
@@ -26,7 +25,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
   });
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-  const { dispatch } = useProductsContext();
+  const dispatch = useDispatch();
 
   // Checks if we're in Update Mode, then auto pre-fill the form with the product
   useEffect(() => {
