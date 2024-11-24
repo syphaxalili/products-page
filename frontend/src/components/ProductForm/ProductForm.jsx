@@ -34,8 +34,41 @@ const ProductForm = ({ closeForm, productInEdit }) => {
     }
   }, [productInEdit]);
 
+  // Simple validation for the numeric fields
+  const validateForm = () => {
+    const errors = [];
+    if (
+      !product.name ||
+      !product.type ||
+      !product.price ||
+      !product.rating ||
+      !product.warranty_years
+    ) {
+      errors.push("All fields are required");
+    }
+    if (product.price < 0 || isNaN(product.price))
+      errors.push("Price must be a positive number");
+    if (product.rating < 0 || product.rating > 10 || isNaN(product.rating))
+      errors.push("Rating must be between 0 and 10");
+    if (
+      product.warranty_years < 1 ||
+      product.warranty_years > 20 ||
+      isNaN(product.warranty_years)
+    )
+      errors.push("Warranty must be between 1 and 20 years");
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const errors = validateForm();
+    if (errors.length > 0) {
+      setError(errors.join(" ---&--- "));
+      handleShowError();
+      return;
+    }
 
     const endpoint = productInEdit
       ? `http://localhost:4000/api/products/${productInEdit._id}`
