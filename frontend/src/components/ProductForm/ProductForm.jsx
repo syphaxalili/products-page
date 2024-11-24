@@ -25,9 +25,9 @@ const ProductForm = ({ closeForm, productInEdit }) => {
   });
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
-  // Checks if we're in Update Mode, then auto pre-fill the form with the product
+  // Used to pre-fill the form when editing a product
   useEffect(() => {
     if (productInEdit) {
       setProduct(productInEdit);
@@ -61,8 +61,6 @@ const ProductForm = ({ closeForm, productInEdit }) => {
       clearForm();
       setError(null);
       setEmptyFields([]);
-      const actionType = productInEdit ? "UPDATE_PRODUCT" : "ADD_PRODUCT";
-      dispatch({ type: actionType, payload: json });
       closeForm();
     }
   };
@@ -98,7 +96,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
 
   return (
     <Modal
-      open={open}
+      open={isModalOpen}
       onClose={closeForm}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
@@ -205,7 +203,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
 
           <Button
             variant="contained"
-            onClick={handleSubmit}
+            type="submit"
             fullWidth
             sx={{ margin: "10px 0" }}
           >

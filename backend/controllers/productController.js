@@ -61,6 +61,24 @@ const createProduct = async (req, res) => {
       ...newProductObject,
     });
     res.status(200).json(product);
+
+    // Broadcast the new product to all WebSocket clients
+    // try {
+    //   req.wss.broadcast({
+    //     type: "ADD_PRODUCT",
+    //     payload: product,
+    //   });
+    // } catch (broadcastError) {
+    //   console.error("Failed to broadcast to clients:", broadcastError);
+    // }
+    if (req.wss && req.wss.broadcast) {
+      req.wss.broadcast({
+        type: "ADD_PRODUCT",
+        payload: product,
+      });
+    } else {
+      console.warn("WebSocket server is unavailable. Skipping broadcast.");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -95,6 +113,16 @@ const updateProduct = async (req, res) => {
       return res.status(404).json({ error: ERROR_MESSAGES.NOT_FOUND });
     }
     res.status(200).json(updatedProduct);
+
+    // Broadcast the updated product to all WebSocket clients
+    try {
+      req.wss.broadcast({
+        type: "UPDATE_PRODUCT",
+        payload: updatedProduct,
+      });
+    } catch (broadcastError) {
+      console.error("Failed to broadcast to clients:", broadcastError);
+    }
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -115,6 +143,16 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ error: ERROR_MESSAGES.NOT_FOUND });
     }
     res.status(200).json(deletedProduct);
+
+    // Broadcast the deleted product to all WebSocket clients
+    try {
+      req.wss.broadcast({
+        type: "DELETE_PRODUCT",
+        payload: deletedProduct,
+      });
+    } catch (broadcastError) {
+      console.error("Failed to broadcast to clients:", broadcastError);
+    }
   } catch (error) {
     res.status(500).json({ error });
   }

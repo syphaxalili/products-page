@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import "./productcard.css";
 
 import {
@@ -14,8 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 const ProductCard = ({ product, openUpdateForm }) => {
-  const dispatch = useDispatch();
-
   const handleDelete = async () => {
     try {
       const response = await fetch(
@@ -25,9 +22,6 @@ const ProductCard = ({ product, openUpdateForm }) => {
         }
       );
       const json = await response.json();
-      if (response.ok) {
-        dispatch({ type: "DELETE_PRODUCT", payload: product });
-      }
     } catch (error) {
       console.log(error);
     }
