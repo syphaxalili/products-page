@@ -1,30 +1,12 @@
-/* google font */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
-
+/* General rules */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* layout */
-:root {
-  --primary: #1aac83;
-  --error: #e7195a;
-}
-
 body {
   background: #f1f1f1;
-  font-family: "Poppins";
-}
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
 }
 
 .container {

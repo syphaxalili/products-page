@@ -1,7 +1,7 @@
 import React from "react";
 import "./navbar.css";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import { Button, Divider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 const Navbar = ({ openCreateForm }) => {
@@ -19,7 +19,7 @@ const Navbar = ({ openCreateForm }) => {
           New product
         </Button>
       </div>
-      <hr />
+      <Divider sx={{ margin: "10px 0 0" }}></Divider>
     </nav>
   );
 };

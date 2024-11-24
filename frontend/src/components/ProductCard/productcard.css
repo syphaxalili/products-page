@@ -47,7 +47,7 @@
 }
 
 .card__header .availability.available span.circle {
-  background-color: var(--primary);
+  background-color: #1aac83;
 }
 
 .card__header .availability.not-available span.circle {

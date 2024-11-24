@@ -45,7 +45,6 @@
   border-radius: 4px;
 }
 
-/* Hide number input field arrows */
 /* Hide number input spinner arrows */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -59,7 +58,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Form main action button */
 .form__content > button {
-  background: var(--primary);
+  background: #1aac83;
   color: #fff;
   padding: 10px;
   font-family: "Poppins";

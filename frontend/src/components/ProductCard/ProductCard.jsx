@@ -45,7 +45,9 @@ const ProductCard = ({ product, openUpdateForm }) => {
             }
           >
             <span className="circle"></span>
-            <p>{product.available ? "Available" : "Out of stock"}</p>
+            <Typography>
+              {product.available ? "Available" : "Out of stock"}
+            </Typography>
           </div>
           <CardActions>
             <div className="icons">

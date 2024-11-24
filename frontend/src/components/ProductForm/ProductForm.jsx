@@ -209,7 +209,9 @@ const ProductForm = ({ closeForm, productInEdit }) => {
             fullWidth
             sx={{ margin: "10px 0" }}
           >
-            {productInEdit ? "Update Product" : "Add Product"}
+            <Typography variant="button">
+              {productInEdit ? "Update Product" : "Add Product"}
+            </Typography>
           </Button>
         </form>
       </div>
