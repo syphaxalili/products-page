@@ -41,7 +41,7 @@ const Home = () => {
     };
 
     fetchProducts("http://localhost:4000/api/products");
-  }, []);
+  }, [dispatch]);
 
   let productsElements = products.map((product) => (
     <ProductCard

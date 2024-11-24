@@ -21,7 +21,6 @@ const ProductCard = ({ product, openUpdateForm }) => {
           method: "DELETE",
         }
       );
-      const json = await response.json();
     } catch (error) {
       console.log(error);
     }

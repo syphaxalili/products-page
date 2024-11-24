@@ -1,4 +1,3 @@
-import React from "react";
 import "./navbar.css";
 import Typography from "@mui/material/Typography";
 import { Button, Divider } from "@mui/material";

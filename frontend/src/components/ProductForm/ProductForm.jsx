@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./productform.css";
-import { useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   IconButton,
