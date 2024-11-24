@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useProductsContext from "../../hooks/useProductsContext";
 import "./home.css";
+import Typography from "@mui/material/Typography";
 
 // import components
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -57,7 +58,9 @@ const Home = () => {
             <div className="products__container">{productsElements}</div>
           ) : (
             <div className="empty__container">
-              The database is empty. Try to add new products now!
+              <Typography color="textPrimary">
+                The database is empty. Try to add new products now!
+              </Typography>
             </div>
           )}
         </div>

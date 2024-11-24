@@ -1,6 +1,19 @@
 import { useState, useEffect } from "react";
 import "./productform.css";
 import useProductsContext from "../../hooks/useProductsContext";
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  IconButton,
+  Typography,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Modal,
+  InputAdornment,
+  Alert,
+} from "@mui/material";
+import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
 
 const ProductForm = ({ closeForm, productInEdit }) => {
   const [product, setProduct] = useState({
@@ -15,6 +28,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
   const [emptyFields, setEmptyFields] = useState([]);
   const { dispatch } = useProductsContext();
 
+  // Checks if we're in Update Mode, then auto pre-fill the form with the product
   useEffect(() => {
     if (productInEdit) {
       setProduct(productInEdit);
@@ -42,6 +56,7 @@ const ProductForm = ({ closeForm, productInEdit }) => {
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
+      handleShowError();
     }
     if (response.ok) {
       clearForm();
@@ -57,9 +72,9 @@ const ProductForm = ({ closeForm, productInEdit }) => {
     setProduct({
       name: "",
       type: "",
-      price: 0,
-      rating: 0,
-      warranty_years: 0,
+      price: "",
+      rating: "",
+      warranty_years: "",
       available: true,
     });
   };
@@ -76,88 +91,130 @@ const ProductForm = ({ closeForm, productInEdit }) => {
     });
   };
 
+  const handleShowError = () => {
+    setTimeout(() => {
+      setError(null);
+    }, 3000);
+  };
+
   return (
-    <div className="form__modal-container">
-      <form className="form__container" onSubmit={handleSubmit}>
-        <div className="header">
-          <h3 className="form__title">
-            {productInEdit ? "Edit Product" : "Add a New Product"}
-          </h3>
-          <i className="fa-solid fa-xmark" onClick={closeForm}></i>
-        </div>
+    <Modal
+      open={open}
+      onClose={closeForm}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <div className="form__container">
+        <form className="form__content" onSubmit={handleSubmit}>
+          <div className="header">
+            <Typography variant="h6">
+              {productInEdit ? "Edit Product" : "Add a New Product"}
+            </Typography>
+            <IconButton aria-label="close" onClick={closeForm}>
+              <CloseIcon />
+            </IconButton>
+          </div>
 
-        {error && <div className="error">{error}</div>}
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="The name of your product..."
-          onChange={handleValueChange}
-          value={product.name}
-          className={emptyFields.includes("name") ? "error" : ""}
-        />
+          {error && <Alert severity="error">{error}</Alert>}
+          <TextField
+            label="Name"
+            id="name"
+            name="name"
+            value={product.name}
+            onChange={handleValueChange}
+            className={emptyFields.includes("name") ? "error" : ""}
+            required
+            fullWidth
+            margin="normal"
+          />
 
-        <label>Type</label>
-        <input
-          type="text"
-          name="type"
-          placeholder="Laptop / Phone / ...."
-          onChange={handleValueChange}
-          value={product.type}
-          className={emptyFields.includes("type") ? "error" : ""}
-        />
+          <TextField
+            label="Type"
+            name="type"
+            value={product.type}
+            onChange={handleValueChange}
+            className={emptyFields.includes("type") ? "error" : ""}
+            required
+            fullWidth
+            margin="normal"
+          />
 
-        <label>Price (€)</label>
-        <input
-          min={0}
-          max={1000000}
-          step={0.01}
-          type="number"
-          name="price"
-          placeholder="0"
-          onChange={handleValueChange}
-          value={product.price}
-          className={emptyFields.includes("price") ? "error" : ""}
-        />
+          <TextField
+            label="Price"
+            name="price"
+            type="number"
+            value={product.price}
+            inputProps={{
+              min: 0,
+              max: 10000000,
+              step: 0.05,
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">€</InputAdornment>
+              ),
+            }}
+            onChange={handleValueChange}
+            className={emptyFields.includes("price") ? "error" : ""}
+            fullWidth
+            margin="normal"
+            required
+          />
 
-        <label>Rating (../10)</label>
-        <input
-          min={0}
-          max={10}
-          step={0.1}
-          type="number"
-          name="rating"
-          placeholder="0"
-          onChange={handleValueChange}
-          value={product.rating}
-          className={emptyFields.includes("rating") ? "error" : ""}
-        />
+          <TextField
+            label="Rating"
+            helperText="The value should be between 0 - 10"
+            name="rating"
+            type="number"
+            value={product.rating}
+            inputProps={{
+              min: 0,
+              max: 10,
+              step: 0.1,
+            }}
+            onChange={handleValueChange}
+            className={emptyFields.includes("rating") ? "error" : ""}
+            fullWidth
+            margin="normal"
+            required
+          />
 
-        <label>Warranty (years)</label>
-        <input
-          min={0}
-          type="number"
-          placeholder="0"
-          name="warranty_years"
-          onChange={handleValueChange}
-          value={product.warranty_years}
-          className={emptyFields.includes("warranty_years") ? "error" : ""}
-        />
+          <TextField
+            label="Warranty"
+            helperText="In 'Years'"
+            name="warranty_years"
+            type="number"
+            value={product.warranty_years}
+            inputProps={{
+              min: 1,
+              max: 20,
+            }}
+            onChange={handleValueChange}
+            className={emptyFields.includes("warranty_years") ? "error" : ""}
+            fullWidth
+            margin="normal"
+            required
+          />
 
-        <div className="available">
-          <label>Available</label>
-          <input
-            type="checkbox"
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Available"
             name="available"
-            className="available__checkbox"
             onChange={handleValueChange}
             checked={product.available}
           />
-        </div>
 
-        <button>{productInEdit ? "Update Product" : "Add Product"}</button>
-      </form>
-    </div>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            fullWidth
+            sx={{ margin: "10px 0" }}
+          >
+            {productInEdit ? "Update Product" : "Add Product"}
+          </Button>
+        </form>
+      </div>
+    </Modal>
   );
 };
 

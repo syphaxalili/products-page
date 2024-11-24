@@ -1,127 +1,65 @@
 /* new product form */
-.form__modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: var(--z-modal);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .form__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 600px;
-  max-height: 90vh;
-  overflow-y: auto; /* Enable vertical scrolling */
   background-color: white;
-  padding: 1rem 2rem 2rem;
+  padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.form__container::-webkit-scrollbar {
+.form__container .form__content {
+  max-height: 90vh;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 16px;
+}
+
+.form__container .form__content::-webkit-scrollbar {
   width: 8px;
 }
 
-.form__container::-webkit-scrollbar-thumb {
+.form__container .form__content::-webkit-scrollbar-thumb {
   background-color: #ddd;
   border-radius: 4px;
 }
 
-.form__container::-webkit-scrollbar-thumb:hover {
+.form__container .form__content::-webkit-scrollbar-thumb:hover {
   background-color: #bbb;
 }
 
-.form__container .header {
+/* Form Header */
+.form__content .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
 }
 
-.form__container .header h3.form__title {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.form__container .header i {
-  font-size: 1.4rem;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  transition: 0.3s;
-}
-
-.form__container .header i:hover {
-  background-color: rgba(0, 0, 0, 0.12);
-}
-
-.form__container label,
-.form__container input {
-  display: block;
-}
-
-.form__container label {
-  font-size: 0.9rem;
-}
-
-.form__container input,
-.form__container input.error {
+/* Form validation error box */
+.form__content > div.form__error {
   padding: 10px;
-  margin-bottom: 12px;
-  width: 100%;
-  border: 1px solid;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
   border-radius: 4px;
-  transition: 0.3s;
 }
 
-.form__container input {
-  border-color: #ddd;
-}
-
-.form__container input.error {
-  border-color: var(--error);
-}
-
-.form__container input.available__checkbox {
-  cursor: pointer;
-}
-
-.form__container > div {
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  margin-bottom: 20px;
-}
-
-.form__container > div input {
-  width: 30px;
-  margin: 0;
-}
-
-/* For Chrome, Safari, Edge, Opera */
-.form__container input[type="number"]::-webkit-inner-spin-button,
-.form__container input[type="number"]::-webkit-outer-spin-button {
+/* Hide number input field arrows */
+/* Hide number input spinner arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* For Firefox */
-input[type="number"] {
-  appearance: unset;
+/* input[type="number"] {
   -moz-appearance: textfield;
-}
+} */
 
-.form__container button {
-  width: 100%;
+/* Form main action button */
+.form__content > button {
   background: var(--primary);
-  border: 0;
   color: #fff;
   padding: 10px;
   font-family: "Poppins";
@@ -130,15 +68,6 @@ input[type="number"] {
   transition: 0.3s;
 }
 
-.form__container button:hover {
+.form__content > button:hover {
   background: #137b5d;
-}
-
-.form__container > div.error {
-  padding: 10px;
-  background: #ffefef;
-  border: 1px solid var(--error);
-  color: var(--error);
-  border-radius: 4px;
-  margin: 20px 0;
 }

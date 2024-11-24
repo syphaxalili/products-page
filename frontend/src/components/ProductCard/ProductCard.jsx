@@ -1,6 +1,18 @@
 import useProductsContext from "../../hooks/useProductsContext";
 import "./productcard.css";
 
+import {
+  Typography,
+  IconButton,
+  Card,
+  CardActions,
+  CardContent,
+  Divider,
+} from "@mui/material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
 const ProductCard = ({ product, openUpdateForm }) => {
   const { dispatch } = useProductsContext();
 
@@ -22,54 +34,71 @@ const ProductCard = ({ product, openUpdateForm }) => {
   };
 
   return (
-    <div className="card__container">
-      <div className="header">
-        <div
-          className={
-            product.available
-              ? "availability available"
-              : "availability not-available"
-          }
-        >
-          <span className="circle"></span>
-          <p>{product.available ? "Available" : "Out of stock"}</p>
-        </div>
-        <div className="icons">
+    <Card sx={{ minWidth: 275 }} className="card__container">
+      <CardContent>
+        <div className="card__header">
           <div
-            className="icon edit__icon"
-            onClick={() => openUpdateForm(product)}
+            className={
+              product.available
+                ? "availability available"
+                : "availability not-available"
+            }
           >
-            <i className="fa-regular fa-pen-to-square"></i>
+            <span className="circle"></span>
+            <p>{product.available ? "Available" : "Out of stock"}</p>
           </div>
-          <div className="icon delete__icon" onClick={handleDelete}>
-            <i className="fa-solid fa-trash"></i>
-          </div>
+          <CardActions>
+            <div className="icons">
+              <IconButton
+                aria-label="update product"
+                onClick={() => openUpdateForm(product)}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                aria-label="delete product"
+                onClick={handleDelete}
+                color="error"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          </CardActions>
         </div>
-      </div>
-      <h4 className="product__name">{product.name}</h4>
-      <div className="content">
-        <hr />
-        <div className="details">
+
+        <Typography variant="h5">{product.name}</Typography>
+
+        <Divider sx={{ margin: "10px 0" }}></Divider>
+
+        <div className="card__product-details">
           <div className="type">
-            <p className="label">Type</p>
-            <p className="value">{product.type}</p>
+            <Typography variant="overline" display="block">
+              Type
+            </Typography>
+            <Typography>{product.type}</Typography>
           </div>
           <div className="rating">
-            <p className="label">Rating</p>
-            <p className="value">{product.rating}</p>
+            <Typography variant="overline" display="block">
+              Rating
+            </Typography>
+            <Typography>{product.rating}</Typography>
           </div>
           <div className="warranty">
-            <p className="label">Warranty</p>
-            <p className="value">{product.warranty_years} year(s)</p>
+            <Typography variant="overline" display="block">
+              Warranty
+            </Typography>
+            <Typography>{product.warranty_years} year(s)</Typography>
           </div>
         </div>
-        <hr />
-        <div className="price">
-          <p className="label">Price</p>
-          <p className="value">€ {product.price}</p>
+
+        <Divider sx={{ margin: "10px 0" }}></Divider>
+
+        <div className="card__product-price">
+          <Typography>Price</Typography>
+          <Typography variant="h6">€ {product.price}</Typography>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

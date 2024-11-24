@@ -11,12 +11,6 @@ nav .content {
   margin-bottom: 1rem;
 }
 
-nav h2 {
-  color: #212830;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
 nav button.create_product {
   cursor: pointer;
   border: none;
