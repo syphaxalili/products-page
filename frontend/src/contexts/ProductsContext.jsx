@@ -1,5 +1,4 @@
 import { createContext, useReducer } from "react";
-import { v4 as uuid } from "uuid";
 
 export const ProductsContext = createContext();
 
@@ -12,7 +11,6 @@ export const ProductsReducer = (state, action) => {
 
     case "ADD_PRODUCT":
       return {
-        // products: [{ _id: uuid(), ...action.payload }, ...state.products],
         products: [action.payload, ...state.products],
       };
 
