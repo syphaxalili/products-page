@@ -1,0 +1,37 @@
+/* Navbar */
+nav.nav__container {
+  padding: 0;
+  margin-top: 1rem;
+}
+
+nav .content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+nav h2 {
+  color: #212830;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+nav button.create_product {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 0.8rem;
+  background-color: #3062d4;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.7rem;
+  transition: 0.3s;
+}
+
+nav button.create_product:hover {
+  background-color: #2d50a3;
+}
